@@ -54,4 +54,4 @@ jobs:
     steps: 
       - name: Publish Nuget Package to DEV
         shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "C:\Users\Vishnu.Kothamasu\actions-runner\_work\InputArguments_Legacy\InputArguments_Legacy\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret ${{env.applicationSecret}} -applicationScope "${{env.applicationScope}}"
+        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "C:\Users\Vishnu.Kothamasu\actions-runner\_work\InputArguments_Legacy\InputArguments_Legacy\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}"
