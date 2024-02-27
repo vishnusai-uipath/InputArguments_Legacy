@@ -52,10 +52,6 @@ jobs:
     needs: build-uipath-nuget-package
     runs-on: self-hosted
     steps: 
-      - name: Download UiPath Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Artifacts
       - name: Publish Nuget Package to DEV
         shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret ${{env.applicationSecret}} -applicationScope "${{env.applicationScope}}"
+        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "C:\Users\Vishnu.Kothamasu\actions-runner\_work\InputArguments_Legacy\InputArguments_Legacy\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret ${{env.applicationSecret}} -applicationScope "${{env.applicationScope}}"
