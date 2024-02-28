@@ -8,12 +8,18 @@ on:
 # Here the environment variable is declared in workflow level
 env:
   # Replace with your Orchestrator Values 
-  ORCHESTRATOR_URL: "https://desktop-3spkt26/"
+  #ORCHESTRATOR_URL: "https://desktop-3spkt26/"
+  #ORCHESTRATOR_FOLDER: "Shared"
+  #Tenant: "Default"
+  #applicationId: "87fa8590-b0a6-4240-b02d-efbd4bf25b0d"
+  #applicationSecret: "$@hgfSf#~s20j7b#" 
+  ORCHESTRATOR_URL: "https:cloud.uipath.com"
   ORCHESTRATOR_FOLDER: "Shared"
-  Tenant: "Default"
-  applicationId: "87fa8590-b0a6-4240-b02d-efbd4bf25b0d"
-  applicationSecret: "$@hgfSf#~s20j7b#" 
+  Tenant: "UiPath"
+  applicationId: "ab86142f-590f-4161-a6a8-0536279b2870"
+  applicationSecret: "UHo3l1^@YBfxNLMS" 
   applicationScope: "OR.Assets OR.BackgroundTasks OR.Execution OR.Folders OR.Jobs OR.Machines.Read OR.Monitoring OR.Robots.Read OR.Settings.Read OR.Tasks OR.TestSetExecutions OR.TestSets OR.TestSetSchedules OR.Users.Read"
+  accountName: "vishnnu"
 
 jobs:
   print-details:
@@ -54,6 +60,6 @@ jobs:
     steps:
       - name: Publish Nuget Package to DEV
         shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "${{ github.workspace }}\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}"
+        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "${{ github.workspace }}\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}" -accountForApp "${{env.accountName}}"
         #run: | 
         #  & "C:\\Users\\Vishnu.Kothamasu\\Desktop\\CLI\\UiPath.CLI.Windows.23.6.8581.19168\\tools\\uipcli.exe" package deploy "${{ github.workspace }}\\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} --applicationId ${{env.applicationId}} --applicationSecret "${{env.applicationSecret}}" --applicationScope "${{env.applicationScope}}"
