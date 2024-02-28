@@ -273,7 +273,7 @@ WriteLog "------------Local CLI--------------"
 #WriteLog "C:\\Users\\Vishnu.Kothamasu\\Desktop\\CLI\\UiPath.CLI.Windows.23.6.8581.19168\\tools\\uipcli.exe package deploy ${ github.workspace }\\package ${env.ORCHESTRATOR_URL} ${env.Tenant} --applicationId ${env.applicationId} --applicationSecret ${env.applicationSecret} --applicationScope ${env.applicationScope}"
 WriteLog "------------Testing-------------"
 WriteLog "$uipathCLI $ParamList"
-& "Test-Connection -ComputerName desktop-3spkt26"
+#& "Test-Connection -ComputerName desktop-3spkt26"
 #call uipath cli 
 & "$uipathCLI" $ParamList
 
