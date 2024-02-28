@@ -13,7 +13,7 @@ env:
   #Tenant: "Default"
   #applicationId: "87fa8590-b0a6-4240-b02d-efbd4bf25b0d"
   #applicationSecret: "$@hgfSf#~s20j7b#" 
-  ORCHESTRATOR_URL: "https://cloud.uipath.com"
+  ORCHESTRATOR_URL: "https://cloud.uipath.com/"
   ORCHESTRATOR_FOLDER: "Shared"
   Tenant: "UiPath"
   applicationId: "ab86142f-590f-4161-a6a8-0536279b2870"
