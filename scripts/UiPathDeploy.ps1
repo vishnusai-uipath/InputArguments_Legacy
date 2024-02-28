@@ -269,6 +269,8 @@ WriteLog "Executing $uipathCLI $ParamMask"
 WriteLog "-----------------------------------------------------------------------------"
 
 WriteLog $uipathCLI 
+WriteLog "------------Testing-------------"
+WriteLog "$uipathCLI" $ParamList.ToArray()
 #call uipath cli 
 & "$uipathCLI" $ParamList.ToArray()
 
