@@ -37,13 +37,13 @@ jobs:
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
 
-  #build-uipath-nuget-package:
+  build-uipath-nuget-package:
     # You should be able to run on windows 2019 or windows latest
-    #runs-on: self-hosted
-    #steps: 
-     # - name: Check out repository code
+    runs-on: self-hosted
+    steps: 
+      - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-     #   uses: actions/checkout@v2
+        uses: actions/checkout@v2
      # - name: Build Nuget Package
      #   shell: pwsh
      #   run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
