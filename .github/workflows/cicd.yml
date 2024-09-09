@@ -68,5 +68,5 @@ jobs:
      runs-on: self-hosted
      steps:
        - name: Run a test set
-         shell: bash
+         shell: powershell.exe
          run: ${{github.workspace}}\scripts\UiPathRunTest.ps1 ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret  "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}" -accountForApp "${{env.accountName}}" -testset "demo"
