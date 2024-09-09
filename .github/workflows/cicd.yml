@@ -37,29 +37,35 @@ jobs:
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
 
-  build-uipath-nuget-package:
+  #build-uipath-nuget-package:
     # You should be able to run on windows 2019 or windows latest
-    runs-on: self-hosted
-    steps: 
-      - name: Check out repository code
+    #runs-on: self-hosted
+    #steps: 
+     # - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        uses: actions/checkout@v2
-      - name: Build Nuget Package
-        shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
-      - name: Upload UiPath Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Artifacts
-          path: |
-           package/*.*
-           scripts/*.ps1
-  publish-uipath-nuget-package:
-    needs: build-uipath-nuget-package
-    runs-on: self-hosted
-    steps:
-      - name: Publish Nuget Package to DEV
-        shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "${{ github.workspace }}\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}" -accountForApp "${{env.accountName}}"
+     #   uses: actions/checkout@v2
+     # - name: Build Nuget Package
+     #   shell: pwsh
+     #   run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
+     # - name: Upload UiPath Artifacts
+     #   uses: actions/upload-artifact@v2
+     #   with:
+      #    name: Artifacts
+      #    path: |
+       #    package/*.*
+       #    scripts/*.ps1
+#  publish-uipath-nuget-package:
+  #  needs: build-uipath-nuget-package
+  #  runs-on: self-hosted
+  #  steps:
+   #   - name: Publish Nuget Package to DEV
+   #     shell: pwsh
+    #    run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 "${{ github.workspace }}\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}" -accountForApp "${{env.accountName}}"
         #run: | 
         #  & "C:\\Users\\Vishnu.Kothamasu\\Desktop\\CLI\\UiPath.CLI.Windows.23.6.8581.19168\\tools\\uipcli.exe" package deploy "${{ github.workspace }}\\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} --applicationId ${{env.applicationId}} --applicationSecret "${{env.applicationSecret}}" --applicationScope "${{env.applicationScope}}"
+  run-test-set:
+     runs-on: self-hosted
+     steps:
+       - name: Run a test set
+         shell: pwsh
+         run: ${{github.workspace}}\scripts\UiPathRunTest.ps1 ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} -applicationId ${{env.applicationId}} -applicationSecret  "${{env.applicationSecret}}" -applicationScope "${{env.applicationScope}}" -accountForApp "${{env.accountName}}" -testset "demo"
