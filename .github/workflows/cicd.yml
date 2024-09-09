@@ -64,6 +64,7 @@ jobs:
         #run: | 
         #  & "C:\\Users\\Vishnu.Kothamasu\\Desktop\\CLI\\UiPath.CLI.Windows.23.6.8581.19168\\tools\\uipcli.exe" package deploy "${{ github.workspace }}\\package" ${{env.ORCHESTRATOR_URL}} ${{env.Tenant}} --applicationId ${{env.applicationId}} --applicationSecret "${{env.applicationSecret}}" --applicationScope "${{env.applicationScope}}"
   run-test-set:
+     needs: build-uipath-nuget-package
      runs-on: self-hosted
      steps:
        - name: Run a test set
