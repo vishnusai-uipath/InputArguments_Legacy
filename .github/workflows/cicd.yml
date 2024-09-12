@@ -39,7 +39,7 @@ jobs:
 
   build-uipath-nuget-package:
     # You should be able to run on windows 2019 or windows latest
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps: 
       - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
