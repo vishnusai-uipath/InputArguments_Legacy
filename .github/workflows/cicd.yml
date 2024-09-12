@@ -23,7 +23,7 @@ env:
 
 jobs:
   print-details:
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - name: echo-default-env-variables
         run: |
@@ -38,6 +38,7 @@ jobs:
           echo "GITHUB_REF: ${GITHUB_REF}"
 
   build-uipath-nuget-package:
+    needs: print-details
     # You should be able to run on windows 2019 or windows latest
     runs-on: windows-latest
     steps: 
