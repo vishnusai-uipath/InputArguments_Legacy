@@ -1,7 +1,5 @@
-name: UiPath Automation Pipeline
-
-env:
-  TEST_SETS: "HelloWorld_TestSet"
+#DOCKER_TLS_CERTDIR: ""
+  #DOCKER_HOST: tcp://docker:2375
 
 on:
   push:
@@ -9,31 +7,21 @@ on:
       - main
 
 jobs:
-  setup:
-    name: Checkout and Setup
-    runs-on: ubuntu-latest
-    outputs:
-      dotnet-version: ${{ steps.set_dotnet.outputs.version }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set .NET version
-        id: set_dotnet
-        run: echo "version=8.0.x" >> $GITHUB_OUTPUT
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
   robot_installation:
     name: Robot Installation
     runs-on: ubuntu-latest
-    needs: setup
+    services:
+      docker:
+        image: docker:20.10.7-dind
+        options: --privileged
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      
+      - name: Setup .NET 8 SDK      
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
       - name: Check Docker
         run: docker info
@@ -43,23 +31,10 @@ jobs:
           if docker ps -a --format '{{.Image}}' | grep -q "uiautomation-runtime:latest24.10"; then
             echo "Robot already installed. Skipping pull and run steps."
           else
-            docker pull registry.uipath.com/robot/uiautomation-runtime:latest24.10
-            docker run -e LICENSE_AGREEMENT=accept -e ORCHESTRATOR_URL="https://cloud.uipath.com/vishnnu/UiPath/orchestrator_/" -e MACHINE_KEY="c12fa89b-0448-431f-9335-3d7c5fbae56c" registry.uipath.com/robot/uiautomation-runtime:latest24.10
-          fi
-
-  test_execution:
-    name: Execute UiPath Test
-    runs-on: ubuntu-latest
-    needs: robot_installation
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
+            docker pull registry.uipath.com/robot/runtime
+            docker run -e LICENSE_AGREEMENT=accept -e ORCHESTRATOR_URL="https://cloud.uipath.com/vishnnu/UiPath/orchestrator_/" -e MACHINE_KEY="c12fa89b-0448-431f-9335-3d7c5fbae56c" -tid registry.uipath.com/robot/uiautomation-runtime:latest24.10
+          fi  
+  
       - name: Run Test with UiPath CLI
         run: |
           cd ./uipathcli/tools
